@@ -127,8 +127,6 @@ class BrowserProcess implements LoggerAwareInterface
 
         // wait for start and retrieve ws uri
         $startupTimeout = isset($options['startupTimeout']) ? $options['startupTimeout'] : 30;
-
-
         $this->wsUri = $this->waitForStartup($process, $startupTimeout * 1000 * 1000);
 
         // log
@@ -191,14 +189,12 @@ class BrowserProcess implements LoggerAwareInterface
                 if ($this->connection->isConnected()) {
                     // first try to close with Browser.close
                     // if Browser.close is not implemented, try to kill by closing all pages
-/*                    try {
+                    try {
                         // log
                         $this->logger->debug('process: trying to close chrome gracefully');
 
                         // TODO check browser.close on chrome 63
                         $r = $this->connection->sendMessageSync(new Message('Browser.close'));
-
-
                         if (!$r->isSuccessful()) {
                             // log
                             $this->logger->debug('process: ✗ could not close gracefully');
@@ -210,7 +206,7 @@ class BrowserProcess implements LoggerAwareInterface
 
                         // close all pages if connected
                         $this->connection->isConnected() && Utils::closeAllPage($this->connection);
-                    }*/
+                    }
 
                     // disconnect socket
                     try {
@@ -225,7 +221,7 @@ class BrowserProcess implements LoggerAwareInterface
                     // wait for process to close
                     $generator = function (Process $process) {
                         while ($process->isRunning()) {
-                            yield 2 * 1000; // wait for 2ms
+                            yield 0 => 2 * 1000; // wait for 2ms
                         }
                     };
                     $timeout = 8 * 1000 * 1000; // 8 seconds
@@ -369,7 +365,6 @@ class BrowserProcess implements LoggerAwareInterface
         // log
         $this->logger->debug('process: waiting for ' . $timeout / 1000000 . ' seconds for startup');
 
-
         while (true) {
             if (!$process->isRunning()) {
                 // log
@@ -415,7 +410,6 @@ class BrowserProcess implements LoggerAwareInterface
             // wait for 10ms
             usleep(10 * 1000);
         }
-
     }
 
     /**

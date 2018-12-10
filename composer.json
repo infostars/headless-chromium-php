@@ -21,11 +21,11 @@
 
   "require": {
     "php": ">=5.6",
-    "symfony/process": "^3.2.0",
+    "symfony/process": "^3.2",
     "wrench/wrench": "^2.0",
-    "symfony/filesystem": "^2.8.0",
+    "symfony/filesystem": "^2.8",
     "psr/log": "^1.0",
     "apix/log": "^1.2",
-    "evenement/evenement": "~v2.0.0"
+    "evenement/evenement": "^v2.0"
   }
 }
